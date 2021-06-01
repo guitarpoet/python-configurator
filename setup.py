@@ -10,22 +10,28 @@
 
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
+import pathlib
 
-try:
-    long_description = open("README.rst").read()
-except IOError:
-    long_description = ""
+# The directory containing this file
+HERE = pathlib.Path(__file__).parent
+README = (HERE / "README.md").read_text()
 
 setup(
     name="configurator",
     version="0.0.1",
     description=
     "This is the package that will provides the configuration functions using liquid templates",
-    license="MIT",
-    author="Jack <jack@thinkingcloud.info>",
+    license="Apache 2.0",
+    author="Jack",
+    url="https://github.com/guitarpoet/python-configurator",
+    author_email="jack@thinkingcloud.info",
     packages=find_packages(),
     install_requires=[],
-    long_description=long_description,
+    long_description=README,
+    long_description_content_type="text/markdown",
+    install_requires=[
+        "liquidpy", "pytoml", "python-dotenv", "python-benedict", "dpath"
+    ],
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.7",

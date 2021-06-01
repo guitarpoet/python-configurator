@@ -42,7 +42,7 @@ config_item = config['a.b.c.d']
 
 Then you'll get `1`.
 
-Or, you can use the XQuery way(which will implemented by [DictQuery](https://github.com/cyberlis/dictquery), like this:
+Or, you can use the XQuery way(which will implemented by [dpath](https://github.com/dpath-maintainers/dpath-python), like this:
 
 ```Python
 config_item = config['a/b/c/*']
