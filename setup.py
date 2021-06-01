@@ -26,7 +26,6 @@ setup(
     url="https://github.com/guitarpoet/python-configurator",
     author_email="jack@thinkingcloud.info",
     packages=find_packages(),
-    install_requires=[],
     long_description=README,
     long_description_content_type="text/markdown",
     install_requires=[
