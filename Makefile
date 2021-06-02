@@ -18,7 +18,7 @@ $(shell $(PWD)/scripts/detect.sh $1)
 endef
 
 define bump
-	$(shell $(BUMPVERSION) --current-version $(VERSION) $1 setup.py version.value)
+	$(shell $(BUMPVERSION) --current-version $(VERSION) $1 setup.py version/value.py)
 endef
 
 #==============================================================================#

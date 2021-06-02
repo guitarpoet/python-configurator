@@ -18,7 +18,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="configuratorpy",
-    version="0.0.1",
+    version="0.0.2",
     description=
     "This is the package that will provides the configuration functions using liquid templates",
     license="Apache 2.0",
