@@ -8,7 +8,7 @@
 #                                                                              #
 ################################################################################
 
-from configpy import *
+from configuratorpy import *
 import logging
 
 logger = logging.getLogger(__name__)

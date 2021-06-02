@@ -17,7 +17,7 @@ HERE = pathlib.Path(__file__).parent
 README = (HERE / "README.md").read_text()
 
 setup(
-    name="configpy",
+    name="configuratorpy",
     version="0.0.1",
     description=
     "This is the package that will provides the configuration functions using liquid templates",
@@ -25,7 +25,7 @@ setup(
     author="Jack",
     url="https://github.com/guitarpoet/python-configurator",
     author_email="jack@thinkingcloud.info",
-    packages=find_packages() + ['.version'],
+    packages=find_packages(),
     long_description=README,
     long_description_content_type="text/markdown",
     install_requires=[
@@ -34,6 +34,8 @@ setup(
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ])
