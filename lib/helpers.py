@@ -10,6 +10,7 @@
 
 from os import path
 from benedict import benedict
+import importlib
 
 
 def relative_path(p, file_name=None):
@@ -24,14 +25,16 @@ def relative_path(p, file_name=None):
 
 def load_class(name):
     names = name.split('.')
-    mod = __import__('.'.join(names[:-1]))
-    clz = names[1:]
+    n = '.'.join(names[:-1])
+    if n[0] == '.':
+        mod = importlib.import_module(n, package=__package__)
+    else:
+        mod = importlib.import_module(n)
 
+    clz = names[-1]
     m = mod
-    for p in clz:
-        if hasattr(m, p):
-            m = getattr(m, p)
-        else:
-            m = None
-            break
+    if hasattr(m, clz):
+        m = getattr(m, clz)
+    else:
+        m = None
     return m

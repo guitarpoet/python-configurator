@@ -18,4 +18,13 @@ case ${module} in
 	pytest)
 		echo `/usr/bin/env which pytest`
 		;;
+	twine)
+		echo `/usr/bin/env which twine`
+		;;
+	bumpversion)
+		echo `/usr/bin/env which bumpversion`
+		;;
+	version)
+		 `/usr/bin/env which python` -m __init__
+		 ;;
 esac

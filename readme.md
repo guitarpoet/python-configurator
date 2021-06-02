@@ -1,11 +1,11 @@
-# Configurator 
+# configpy 
 
 A macro way to read configuration files
 
 # Installation
 
 ```Bash
-pip install configurator
+pip install configpy
 ```
 
 # Usage
@@ -13,7 +13,7 @@ pip install configurator
 ## Reading the configuration
 
 ```Python
-from configurator import Configurator
+from configpy import Configurator
 
 config = Configurator('app_config.toml')
 config.load() # This will trigger the load, before you trigger the load, the configurator will not start the loading automaticly
@@ -73,7 +73,7 @@ or add a default value to it:
 a = {{ 'THE VARIABLE' | env: 'default value' }}
 ```
 
-# Why configurator
+# Why configpy
 
 ## Configuration is Hard
 

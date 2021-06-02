@@ -17,7 +17,7 @@ HERE = pathlib.Path(__file__).parent
 README = (HERE / "README.md").read_text()
 
 setup(
-    name="configurator",
+    name="configpy",
     version="0.0.1",
     description=
     "This is the package that will provides the configuration functions using liquid templates",
