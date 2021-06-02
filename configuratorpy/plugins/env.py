@@ -25,13 +25,15 @@ def env(key, default=''):
 
 class TagLoadEnv(Tag):
     VOID = True
+    RAW = False
     START = 'tag_loadenv'
     GRAMMAR = '''
     tag_loadenv: string
     '''
 
     def _render(self, local_vars, global_vars):
-        load_env(self.content)
+        p = self.parsed.children[0]
+        load_env(p)
         return ''
 
 

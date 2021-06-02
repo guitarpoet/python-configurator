@@ -42,6 +42,7 @@ def test_load():
     try:
         c = Configurator(directory=relative_path(__file__, 'data'))
         c.load()
+        assert c['test'] == 1, 'Load failed'
         assert c['section.sub.a'] == 1, 'Load failed'
         assert c['section/sub/*'] == [1, 2, 3], 'Search Failed'
         assert c['section/sub/a'] == 1, 'Load failed'

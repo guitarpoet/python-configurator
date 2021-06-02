@@ -13,7 +13,7 @@ a=1
 b={{a}}
 c="{{'SHELL' | env }}"
 not_exists="{{ 'NOT_EXISTS' | env: 'not' }}"
-test="{{'test' | env }}"
+test={{'test' | env }}
 abc="{{'env' | env }}"
 d = "{% uuid %}"
 
