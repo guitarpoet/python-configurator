@@ -7,7 +7,7 @@
 #                          @date 2021-05-31 14:34:33                           #
 #                                                                              #
 ################################################################################
-{% load_env 'tests/data/env.conf' %}
+{% loadenv "tests/data/env.conf" %}
 a=1
 {% assign a = 1 %}
 b={{a}}
@@ -23,10 +23,9 @@ seq_{{i+1}} = {{'hello' | seq }}
 
 [section]
 a = {{a}}
+b = {% increment a %}
 
 [section.sub]
-a = {{a}}
-{% increment a %}
-b = {{a}}
-{% increment a %}
-c = {{a}}
+a = {% increment a %}
+b = {% increment a %}
+c = {% increment a %}

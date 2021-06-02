@@ -17,6 +17,8 @@ import toml
 from liquid import Liquid
 from benedict import benedict
 import dpath.util
+from liquid import tag_manager, Tag
+from liquid.python.tags.inherited import tag_manager
 
 logger = logging.getLogger(__name__)
 
@@ -90,5 +92,11 @@ class Configurator:
                 p = p()
                 for k, v in p.provides.items():
                     context[k] = v
-        self.template = Liquid(self.filename, liquid_from_file=True, **context)
+                for k, v in p.tags.items():
+                    tag_manager.register(k)(v)
+
+        self.template = Liquid(self.filename,
+                               liquid_from_file=True,
+                               liquid_config={'mode': 'python'},
+                               **context)
         self.config_data = benedict(toml.loads(self.template.render()))

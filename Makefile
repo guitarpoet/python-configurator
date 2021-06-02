@@ -36,7 +36,7 @@ TESTS := tests
 RM := rm -rf 
 TEST_PYPI := https://test.pypi.org/legacy/
 PYPI := https://upload.pypi.org/legacy/
-SRC := $(shell find configpy -type f) $(shell find version -type f)
+SRC := $(shell find configuratorpy -type f) $(shell find version -type f)
 BUMPVERSION=$(call detect, bumpversion)
 
 #==============================================================================#
@@ -60,18 +60,18 @@ clean:
 	$(SILENT) $(RM) dist
 .PHONY: clean
 
-dist/configpy-$(VERSION).tar.gz: $(SRC)
+dist/configuratorpy-$(VERSION).tar.gz: $(SRC)
 	$(SILENT) $(RM) build
-	$(SILENT) $(RM) configpy.egg-info/
+	$(SILENT) $(RM) configuratorpy.egg-info/
 	$(SILENT) $(RM) dist
 	$(SILENT) $(PYTHON) setup.py sdist
 .PHONY: build
 
-upload: dist/configpy-$(VERSION).tar.gz
+upload: dist/configuratorpy-$(VERSION).tar.gz
 	$(SILENT) $(TWINE) upload --repository-url $(PYPI) dist/*
 .PHONY: upload
 
-test_upload: dist/configpy-$(VERSION).tar.gz
+test_upload: dist/configuratorpy-$(VERSION).tar.gz
 	$(SILENT) $(TWINE) upload --repository-url $(TEST_PYPI) dist/*
 .PHONY: test_upload
 

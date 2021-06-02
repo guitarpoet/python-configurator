@@ -12,9 +12,7 @@ import os
 from .base import Plugin
 from dotenv import load_dotenv
 from contextlib import suppress
-from liquid.nodes import NodeVoid, register_node
-from liquid.defaults import LIQUID_RENDERED_APPEND
-from liquid.exceptions import LiquidSyntaxError, LiquidCodeTagExists
+from liquid import tag_manager, Tag
 
 
 def load_env(path=None):
@@ -25,21 +23,22 @@ def env(key, default=''):
     return os.getenv(key, default=default)
 
 
-class NodeLoadEnv(NodeVoid):
-    def start(self):
-        if not self.attrs:
-            raise LiquidSyntaxError("No configuration file!", self.context)
+class TagLoadEnv(Tag):
+    VOID = True
+    START = 'tag_loadenv'
+    GRAMMAR = '''
+    tag_loadenv: string
+    '''
 
-    def parse_node(self):
-        # log the parsing process
-        super().parse_node()
-        p = self.attrs.replace("'", '')
-        load_env(p)
+    def _render(self, local_vars, global_vars):
+        load_env(self.content)
+        return ''
 
 
 class EnvironmentPlugin(Plugin):
-    def __init__(self):
-        register_node("load_env", NodeLoadEnv)
+    @property
+    def tags(self):
+        return {'loadenv': TagLoadEnv}
 
     @property
     def provides(self):
