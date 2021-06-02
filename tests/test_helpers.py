@@ -8,7 +8,7 @@
 #                                                                              #
 ################################################################################
 
-from lib.helpers import *
+from configpy import *
 
 def test_load_class():
     clz = load_class('.plugins.env.EnvironmentPlugin')

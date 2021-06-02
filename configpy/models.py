@@ -26,9 +26,7 @@ class Configurator:
     directory: str = None
     config_data: dict = None
     template: dict = None
-    plugins: list = [
-        '.plugins.env.EnvironmentPlugin', '.plugins.seq.SequencePlugin'
-    ]
+    plugins: list = ['.plugins.EnvironmentPlugin', '.plugins.SequencePlugin']
     """
     This is the model for the configurator
     """

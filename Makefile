@@ -35,7 +35,7 @@ ECHO := echo
 TESTS := tests
 RM := rm -rf 
 TEST_PYPI := https://test.pypi.org/legacy/
-SRC := $(shell find lib -type f)
+SRC := $(shell find configpy -type f) $(shell find version -type f)
 BUMPVERSION=$(call detect, bumpversion)
 
 #==============================================================================#

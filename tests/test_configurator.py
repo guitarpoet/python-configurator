@@ -8,10 +8,8 @@
 #                                                                              #
 ################################################################################
 
-from lib.models import Configurator
-from lib.exceptions import *
+from configpy import *
 import logging
-from lib.helpers import relative_path
 
 logger = logging.getLogger(__name__)
 
@@ -48,6 +46,7 @@ def test_load():
         assert c['section/sub/*'] == [1, 2, 3], 'Search Failed'
         assert c['section/sub/a'] == 1, 'Load failed'
         assert c.sub('section')['a'] == 1, 'Sub failed'
-        assert c['seq_*'] == list(i + 1 for i in range(5)), 'Sequence is not working'
+        assert c['seq_*'] == list(i + 1
+                                  for i in range(5)), 'Sequence is not working'
     except ConfigNotExistsException:
         assert False, 'File not found'

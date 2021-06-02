@@ -19,27 +19,6 @@ from liquid.exceptions import LiquidSyntaxError, LiquidCodeTagExists
 seqs = {}
 
 
-class NodeSeq(NodeVoid):
-    def parse_node(self):
-        # log the parsing process
-        super().parse_node()
-
-        # let us just do a simple version, using subprocess.check_output
-        # import the module, since this module will be import just once,
-        # so we put it in the shared_code
-        with suppress(LiquidCodeTagExists), \
-                self.shared_code.tag('import_subprocess') as tagged:
-            tagged.add_line("import subprocess")
-
-        # use it to parse the command
-        # save the result to a variable first
-        # add id here to avoid conflicts
-        self.code.add_line(f"command_{id(self)} = subprocess.check_output("
-                           f"['bash', '-c', {self.attrs!r}], encoding='utf-8')")
-        # put the results in rendered content
-        self.code.add_line(f"{LIQUID_RENDERED_APPEND}(command_{id(self)})")
-
-
 class NodeUUID(NodeVoid):
     def parse_node(self):
         # log the parsing process
@@ -70,7 +49,6 @@ def seq(name):
 
 class SequencePlugin(Plugin):
     def __init__(self):
-        register_node("seq", NodeSeq)
         register_node("uuid", NodeUUID)
 
     @property
