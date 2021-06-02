@@ -11,5 +11,5 @@
 from lib.helpers import *
 
 def test_load_class():
-    clz = load_class('lib.plugins.env.EnvironmentPlugin')
-    assert clz, 'Class lib.plugins.env.EnvironmentPlugin not loaded'
+    clz = load_class('.plugins.env.EnvironmentPlugin')
+    assert clz, 'Class .plugins.env.EnvironmentPlugin not loaded'

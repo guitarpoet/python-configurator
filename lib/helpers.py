@@ -23,11 +23,13 @@ def relative_path(p, file_name=None):
     return pp
 
 
-def load_class(name):
+def load_class(name, package=None):
     names = name.split('.')
     n = '.'.join(names[:-1])
+    if not package:
+        package = __package__
     if n[0] == '.':
-        mod = importlib.import_module(n, package=__package__)
+        mod = importlib.import_module(n, package=package)
     else:
         mod = importlib.import_module(n)
 

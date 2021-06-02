@@ -40,7 +40,6 @@ class NodeLoadEnv(NodeVoid):
 class EnvironmentPlugin(Plugin):
     def __init__(self):
         register_node("load_env", NodeLoadEnv)
-        pass
 
     @property
     def provides(self):

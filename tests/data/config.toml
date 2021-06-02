@@ -15,6 +15,11 @@ c="{{'SHELL' | env }}"
 not_exists="{{ 'NOT_EXISTS' | env: 'not' }}"
 test="{{'test' | env }}"
 abc="{{'env' | env }}"
+d = "{% uuid %}"
+
+{% for i in range(5) %}
+seq_{{i+1}} = {{'hello' | seq }}
+{% endfor %}
 
 [section]
 a = {{a}}

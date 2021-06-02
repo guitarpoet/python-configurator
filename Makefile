@@ -43,7 +43,6 @@ BUMPVERSION=$(call detect, bumpversion)
 #==============================================================================#
 
 test:
-	echo $(VERSION)
 	$(SILENT) $(PYTEST) $(TESTS) -s
 .PHONY: test
 
