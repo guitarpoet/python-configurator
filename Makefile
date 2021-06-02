@@ -35,6 +35,7 @@ ECHO := echo
 TESTS := tests
 RM := rm -rf 
 TEST_PYPI := https://test.pypi.org/legacy/
+PYPI := https://upload.pypi.org/legacy/
 SRC := $(shell find configpy -type f) $(shell find version -type f)
 BUMPVERSION=$(call detect, bumpversion)
 
@@ -50,6 +51,10 @@ run:
 	$(SILENT) $(ECHO) $(PYTHON) $(PYTEST)
 .PHONY: run
 
+#==============================================================================#
+#                               Build & Publish                                #
+#==============================================================================#
+
 clean:
 	$(SILENT) $(RM) build
 	$(SILENT) $(RM) dist
@@ -61,6 +66,10 @@ dist/configpy-$(VERSION).tar.gz: $(SRC)
 	$(SILENT) $(RM) dist
 	$(SILENT) $(PYTHON) setup.py sdist
 .PHONY: build
+
+upload: dist/configpy-$(VERSION).tar.gz
+	$(SILENT) $(TWINE) upload --repository-url $(PYPI) dist/*
+.PHONY: upload
 
 test_upload: dist/configpy-$(VERSION).tar.gz
 	$(SILENT) $(TWINE) upload --repository-url $(TEST_PYPI) dist/*
