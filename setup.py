@@ -19,8 +19,7 @@ README = (HERE / "README.md").read_text()
 setup(
     name="configuratorpy",
     version="0.0.4",
-    description=
-    "This is the package that will provides the configuration functions using liquid templates",
+    description="This is the package that will provides the configuration functions using jinja2 templates",
     license="Apache 2.0",
     author="Jack",
     url="https://github.com/guitarpoet/python-configurator",
@@ -29,7 +28,7 @@ setup(
     long_description=README,
     long_description_content_type="text/markdown",
     install_requires=[
-        "liquidpy", "pytoml", "python-dotenv", "python-benedict", "dpath"
+        "jinja2", "pytoml", "python-dotenv", "python-benedict", "dpath"
     ],
     classifiers=[
         "Programming Language :: Python",

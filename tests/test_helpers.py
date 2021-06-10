@@ -11,5 +11,5 @@
 from configuratorpy import *
 
 def test_load_class():
-    clz = load_class('.plugins.env.EnvironmentPlugin')
-    assert clz, 'Class .plugins.env.EnvironmentPlugin not loaded'
+    clz = load_class('.plugins.env.EnvExtension')
+    assert clz, 'Class .plugins.env.EnvExtension not loaded'

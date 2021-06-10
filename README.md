@@ -55,7 +55,7 @@ Then you'll get`[1,2,3]`
 ### Load dot env file
 
 You can load the environment variables in dot env file by using the macro like this:
-```Liquid
+```Jinja2
 {% load_env 'the/path/of/your/env.file' %}
 ```
 
@@ -63,14 +63,14 @@ You can load the environment variables in dot env file by using the macro like t
 
 You can access the environment variable like this:
 
-```Liquid
+```Jinja2
 a = {{ 'THE VARIABLE' | env }}
 ```
 
 or add a default value to it:
 
-```Liquid
-a = {{ 'THE VARIABLE' | env: 'default value' }}
+```Jinja2
+a = {{ 'THE VARIABLE' | env('default value') }}
 ```
 
 # Why configuratorpy
@@ -131,4 +131,4 @@ TOML do have some drawbacks than YAML, first, it don't have any variable definit
 
 Wait, can't you see, this is just the requirements for the Macro Engine.
 
-Yes, that's why I use a template engine like [Liquid](https://shopify.github.io/liquid/) for this task.
+Yes, that's why I use a template engine like [Jinja2](https://jinja.palletsprojects.com/en/3.0.x/) for this task.

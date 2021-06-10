@@ -8,5 +8,5 @@
 #                                                                              #
 ################################################################################
 
-from .env import EnvironmentPlugin
-from .seq import SequencePlugin
+from .env import EnvExtension
+from .seq import UUIDExtension, SeqExtension

@@ -14,11 +14,9 @@ import logging
 from .exceptions import *
 from .helpers import load_class
 import toml
-from liquid import Liquid
 from benedict import benedict
 import dpath.util
-from liquid import tag_manager, Tag
-from liquid.python.tags.inherited import tag_manager
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 logger = logging.getLogger(__name__)
 
@@ -27,15 +25,18 @@ class Configurator:
     name: str = None
     directory: str = None
     config_data: dict = None
-    template: dict = None
-    plugins: list = ['.plugins.EnvironmentPlugin', '.plugins.SequencePlugin']
+    template: any = None
+    env: Environment = None
+    plugins: list = ['.plugins.EnvExtension',
+                     '.plugins.UUIDExtension', '.plugins.SeqExtension']
     """
     This is the model for the configurator
     """
+
     def __init__(self,
                  name: str = 'config.toml',
                  directory: str = None,
-                 plugins: list = None):
+                 plugins: list = None, load=True):
         self.name = name
         if plugins:
             self.plugins += plugins
@@ -51,6 +52,8 @@ class Configurator:
         if not path.exists(self.filename):
             raise ConfigNotExistsException(
                 f'Configuration file {self.filename} not exists!')
+        if load:
+            self.load()
 
     def __getitem__(self, name):
         return self.get(name)
@@ -68,7 +71,7 @@ class Configurator:
         return self.config_data.get(name, default)
 
     def sub(self, name):
-        c = Configurator(self.name, self.directory)
+        c = Configurator(self.name, directory=self.directory, load=False)
         c.config_data = benedict(self[name])
         return c
 
@@ -86,17 +89,15 @@ class Configurator:
         # Let's load all plugins
         context = {}
 
-        for plugin in self.plugins:
-            p = load_class(plugin)
-            if p:
-                p = p()
-                for k, v in p.provides.items():
-                    context[k] = v
-                for k, v in p.tags.items():
-                    tag_manager.register(k)(v)
+        extensions = []
+        if not self.env:
+            for plugin in self.plugins:
+                p = load_class(plugin)
+                if p:
+                    extensions.append(p)
+            self.env = Environment(loader=FileSystemLoader(
+                self.directory), extensions=extensions)
 
-        self.template = Liquid(self.filename,
-                               liquid_from_file=True,
-                               liquid_config={'mode': 'python'},
-                               **context)
+        if not self.template:
+            self.template = self.env.get_template(self.name)
         self.config_data = benedict(toml.loads(self.template.render()))

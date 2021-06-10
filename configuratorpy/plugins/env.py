@@ -9,10 +9,15 @@
 ################################################################################
 
 import os
-from .base import Plugin
 from dotenv import load_dotenv
 from contextlib import suppress
-from liquid import tag_manager, Tag
+import jinja2
+from jinja2 import nodes, TemplateSyntaxError
+from jinja2.ext import Extension
+from jinja2.nodes import Const
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def load_env(path=None):
@@ -23,25 +28,26 @@ def env(key, default=''):
     return os.getenv(key, default=default)
 
 
-class TagLoadEnv(Tag):
-    VOID = True
-    RAW = False
-    START = 'tag_loadenv'
-    GRAMMAR = '''
-    tag_loadenv: string
-    '''
+jinja2.filters.FILTERS['env'] = env
 
-    def _render(self, local_vars, global_vars):
-        p = self.parsed.children[0]
-        load_env(p)
+
+class EnvExtension(Extension):
+    tags = {'loadenv'}
+
+    def __init__(self, environment):
+        super(EnvExtension, self).__init__(environment)
+
+    def parse(self, parser):
+        line_number = next(parser.stream).lineno
+        file = [Const('')]
+        body = ''
+        try:
+            file = [parser.parse_expression()]
+        except TemplateSyntaxError:
+            file = parser.parse_statements(
+                ['name:endloadenv'], drop_needle=True)
+        load_env(file[0].value)
+        return nodes.CallBlock(self.call_method('_load_env', file), [], [], body).set_lineno(line_number)
+
+    def _load_env(self, file, caller):
         return ''
-
-
-class EnvironmentPlugin(Plugin):
-    @property
-    def tags(self):
-        return {'loadenv': TagLoadEnv}
-
-    @property
-    def provides(self):
-        return {'env': env}
