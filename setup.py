@@ -18,7 +18,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="configuratorpy",
-    version="0.0.4",
+    version="0.0.5",
     description="This is the package that will provides the configuration functions using jinja2 templates",
     license="Apache 2.0",
     author="Jack",
